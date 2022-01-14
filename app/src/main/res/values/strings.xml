@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="dummy_publish_date">16 Januari 2022</string>
+    <string name="dummy_title">Cambodia to hold twice-postponed ASEM summit in November</string>
+    <string name="empty_state_image">error state image view</string>
+    <string name="btn_retry">Retry</string>
+    <string name="something_went_wrong">Something went wrong :(</string>
+</resources>
