@@ -5,4 +5,7 @@
     <string name="empty_state_image">error state image view</string>
     <string name="btn_retry">Retry</string>
     <string name="something_went_wrong">Something went wrong :(</string>
+    <string name="article_image_description">Article Image</string>
+    <string name="fab_button_to_add_favourite">Fab button to add to favourite</string>
+    <string name="back_to_exit">Press back again to exit</string>
 </resources>

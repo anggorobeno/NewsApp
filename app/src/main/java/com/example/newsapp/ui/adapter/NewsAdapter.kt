@@ -1,6 +1,5 @@
 package com.example.newsapp.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -8,20 +7,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.data.remote.response.NewsResult
+import com.example.newsapp.core.data.remote.response.NewsResult
 import com.example.newsapp.databinding.ItemListNewsBinding
+import com.example.newsapp.domain.model.NewsModel
 import javax.inject.Inject
 
 class NewsAdapter @Inject constructor() :
-    PagingDataAdapter<NewsResult, NewsAdapter.ViewHolder>(NEWS_DIFF) {
+    PagingDataAdapter<NewsModel, NewsAdapter.ViewHolder>(NEWS_DIFF) {
     inner class ViewHolder(private val binding: ItemListNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(news: NewsResult) {
+        fun bind(news: NewsModel) {
             with(binding) {
                 tvNewsDate.text = news.publishedDate
                 tvNewsTitle.text = news.title
-                for (image in news.gallery) {
-                    Log.d("TAG", "bind: ${image.pathMedium} ")
+                news.gallery.forEach { image ->
                     Glide.with(itemView)
                         .load(image.pathMedium)
                         .centerCrop()
@@ -29,10 +28,17 @@ class NewsAdapter @Inject constructor() :
                         .error(R.drawable.ic_failed)
                         .into(ivNewsImage)
                 }
-
-
+                binding.root.setOnClickListener {
+                    onItemClickCallback.onItemClicked(news)
+                }
             }
         }
+
+    }
+
+    lateinit var onItemClickCallback: OnItemClickCallback
+    fun setOnItemCallback(callback: OnItemClickCallback) {
+        this.onItemClickCallback = callback
 
     }
 
@@ -50,15 +56,19 @@ class NewsAdapter @Inject constructor() :
     }
 
     companion object {
-        private val NEWS_DIFF = object : DiffUtil.ItemCallback<NewsResult>() {
-            override fun areItemsTheSame(oldItem: NewsResult, newItem: NewsResult): Boolean {
+        private val NEWS_DIFF = object : DiffUtil.ItemCallback<NewsModel>() {
+            override fun areItemsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: NewsResult, newItem: NewsResult): Boolean {
+            override fun areContentsTheSame(oldItem: NewsModel, newItem: NewsModel): Boolean {
                 return oldItem == newItem
             }
 
         }
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: NewsModel)
     }
 }

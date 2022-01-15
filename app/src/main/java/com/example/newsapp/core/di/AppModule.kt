@@ -1,9 +1,9 @@
-package com.example.newsapp.di
+package com.example.newsapp.core.di
 
 import com.example.newsapp.BuildConfig
-import com.example.newsapp.data.Repository
-import com.example.newsapp.data.remote.network.ApiService
-import com.example.newsapp.domain.IRepository
+import com.example.newsapp.core.data.Repository
+import com.example.newsapp.core.data.remote.network.ApiService
+import com.example.newsapp.domain.repository.IRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

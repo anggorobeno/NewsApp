@@ -1,21 +1,24 @@
-package com.example.newsapp.ui.news
+package com.example.newsapp.ui.list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.adapter.NewsAdapter
 import com.example.newsapp.ui.adapter.NewsLoadStateAdapter
+import com.example.newsapp.core.utils.Constant
+import com.example.newsapp.domain.model.NewsModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -27,6 +30,7 @@ class NewsFragment : Fragment() {
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NewsViewModel by viewModels()
+    private var pressedTime: Long = 0
 
 
     override fun onCreateView(
@@ -42,20 +46,38 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getNewsList()
         binding.swipeRefreshLayout.setOnRefreshListener {
-            Toast.makeText(requireContext(), "Refreshed", Toast.LENGTH_LONG).show()
             newsAdapter.refresh()
             binding.swipeRefreshLayout.isRefreshing = false
         }
+        backPressClose()
     }
 
     private fun getNewsList() {
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.getNewsList().collectLatest { newsList ->
                 newsAdapter.submitData(viewLifecycleOwner.lifecycle, newsList)
                 showRv()
             }
         }
 
+    }
+
+    private fun backPressClose() {
+        //Back press Close App
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // handle back event
+            if (pressedTime + 5000 > System.currentTimeMillis()) {
+                activity?.finishAndRemoveTask()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.back_to_exit),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
+            pressedTime = System.currentTimeMillis()
+        }
     }
 
     private fun showRv() {
@@ -86,7 +108,18 @@ class NewsFragment : Fragment() {
 
                 }
             }
+            newsAdapter.setOnItemCallback(object : NewsAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: NewsModel) {
+                    val bundle = Bundle()
+                    bundle.putString(Constant.EXTRA_PATH, data.path)
+                    findNavController().navigate(
+                        R.id.action_newsFragment_to_newsDetailFragment,
+                        bundle
+                    )
 
+                }
+
+            })
             binding.btnRetry.setOnClickListener {
                 newsAdapter.retry()
             }

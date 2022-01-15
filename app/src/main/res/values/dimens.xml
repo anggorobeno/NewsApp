@@ -5,8 +5,19 @@
     <dimen name="dimens_75">75dp</dimen>
     <dimen name="dimens_12">12dp</dimen>
     <dimen name="font_16">16sp</dimen>
-    <dimen name="font_14">14sp</dimen>
     <dimen name="dimens_250">250dp</dimen>
     <dimen name="dimens_200">200dp</dimen>
     <dimen name="dimens_8">8dp</dimen>
+    <dimen name="font_14">14sp</dimen>
+    <dimen name="dimens_2">2dp</dimen>
+    <dimen name="dimens_60">60dp</dimen>
+    <dimen name="dimens_20">20dp</dimen>
+    <dimen name="font_22">22sp</dimen>
+    <dimen name="dimens_32">32dp</dimen>
+    <dimen name="font_26">26sp</dimen>
+    <dimen name="dimens_28">28dp</dimen>
+    <dimen name="dimens_48">40dp</dimen>
+    <dimen name="dimens_30">30dp</dimen>
+    <dimen name="dimens_38">38dp</dimen>
+    <dimen name="font_18">18sp</dimen>
 </resources>

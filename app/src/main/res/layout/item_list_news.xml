@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/dimens_16"
+    android:layout_marginTop="@dimen/dimens_16"
     android:background="@drawable/bg_card_view">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_news_image"
-        android:layout_width="@dimen/dimens_75"
-        android:layout_height="@dimen/dimens_75"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="@dimen/dimens_16"
         android:layout_marginStart="@dimen/dimens_16"
         android:layout_marginBottom="@dimen/dimens_16"
@@ -24,28 +24,36 @@
 
     <TextView
         android:id="@+id/tv_news_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dimens_0"
         android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:layout_marginStart="@dimen/dimens_16"
+        android:layout_marginEnd="@dimen/dimens_16"
+        android:layout_marginBottom="@dimen/dimens_16"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/text_black"
-        android:textSize="@dimen/font_16"
-        tools:text="@string/dummy_title"
-        app:layout_constraintStart_toEndOf="@id/iv_news_image"
-        app:layout_constraintTop_toTopOf="@id/iv_news_image" />
+        android:textSize="@dimen/font_14"
+        app:layout_constraintBottom_toTopOf="@+id/tv_news_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_news_image"
+        app:layout_constraintTop_toTopOf="@+id/iv_news_image"
+        tools:text="@string/dummy_title" />
 
     <TextView
         android:id="@+id/tv_news_date"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dimens_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimens_16"
+        android:layout_marginTop="@dimen/dimens_16"
         android:layout_marginEnd="@dimen/dimens_16"
         android:fontFamily="@font/poppins_medium"
         android:textColor="@color/text_grey"
         android:textSize="@dimen/font_14"
-        tools:text="@string/dummy_publish_date"
-        app:layout_constraintStart_toEndOf="@id/iv_news_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_news_title" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/iv_news_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_news_title"
+        tools:text="@string/dummy_publish_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
