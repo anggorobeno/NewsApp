@@ -14,11 +14,11 @@ import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
+import com.example.newsapp.core.utils.Constant
 import com.example.newsapp.databinding.FragmentNewsBinding
+import com.example.newsapp.domain.model.NewsModel
 import com.example.newsapp.ui.adapter.NewsAdapter
 import com.example.newsapp.ui.adapter.NewsLoadStateAdapter
-import com.example.newsapp.core.utils.Constant
-import com.example.newsapp.domain.model.NewsModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -81,7 +81,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun showRv() {
-        with(binding.rvUser) {
+        with(binding.rvNews) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = newsAdapter.withLoadStateHeaderAndFooter(
@@ -91,7 +91,7 @@ class NewsFragment : Fragment() {
             newsAdapter.addLoadStateListener { loadState ->
                 with(binding) {
                     progressCircular.isVisible = loadState.source.refresh is LoadState.Loading
-                    rvUser.isVisible = loadState.source.refresh is LoadState.NotLoading
+                    rvNews.isVisible = loadState.source.refresh is LoadState.NotLoading
                     tvEmptyStateDesc.isVisible =
                         loadState.source.refresh is LoadState.Error
                     ivEmptyState.isVisible = loadState.source.refresh is LoadState.Error
@@ -100,7 +100,7 @@ class NewsFragment : Fragment() {
                     if (loadState.source.refresh is LoadState.Error) {
                         ivEmptyState.setImageResource(R.drawable.ic_failed)
                         ivEmptyState.isVisible = true
-                        rvUser.isVisible = false
+                        rvNews.isVisible = false
                         tvEmptyStateDesc.text = getString(R.string.something_went_wrong)
                         tvEmptyStateDesc.isVisible = true
                         btnRetry.isVisible = true

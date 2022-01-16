@@ -1,6 +1,7 @@
 package com.example.newsapp.ui.detail
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +9,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
+import com.example.newsapp.core.utils.Constant
+import com.example.newsapp.core.utils.Helper
+import com.example.newsapp.core.utils.UiState
 import com.example.newsapp.databinding.FragmentDetailNewsBinding
 import com.example.newsapp.domain.model.DetailNewsModel
-import com.example.newsapp.core.utils.Constant
-import com.example.newsapp.core.utils.UiState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+
 
 @AndroidEntryPoint
 class NewsDetailFragment : Fragment() {
@@ -37,13 +41,15 @@ class NewsDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val path = requireArguments().getString(Constant.EXTRA_PATH)!!
         showNewsDetail(path)
+        binding.icBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun showNewsDetail(path: String) {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.getDetail(path).collectLatest { news ->
                 handleState(news)
-
             }
         }
     }
@@ -62,21 +68,19 @@ class NewsDetailFragment : Fragment() {
             is UiState.Success -> {
                 binding.progressBar.isVisible = false
                 state.data.forEach { data ->
-                    binding.tvUserName.text = data.title
-                    binding.tvUserFollowings.text = data.writer.name
-                    binding.tvUserFollowers.text = data.publishedDate
-                    binding.tvNewsContent.loadDataWithBaseURL(
-                        null,
-                        data.content,
-                        "text/html",
-                        "utf-8",
-                        null
-                    )
+                    binding.tvTitle.text = data.title
+                    binding.tvWriter.text = data.writer.name
+                    val dateFormatted = data.publishedDate?.let { Helper.dateFormatter(it) }
+                    binding.tvDate.text =
+                        getString(R.string.published_date, data.location, dateFormatted)
+                    val htmlAsSpanned = Html.fromHtml(getString(R.string.html, data.content))
+                    binding.tvNewsContent.text = htmlAsSpanned
                     data.gallery.forEach { image ->
+                        binding.tvImageDesc.text = image.title
                         Glide.with(requireContext())
                             .load(image.pathLarge)
                             .error(R.drawable.ic_failed)
-                            .into(binding.ivAvatar)
+                            .into(binding.ivArticle)
                     }
                 }
 
@@ -86,6 +90,11 @@ class NewsDetailFragment : Fragment() {
             }
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

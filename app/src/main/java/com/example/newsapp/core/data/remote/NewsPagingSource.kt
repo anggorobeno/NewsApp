@@ -1,10 +1,7 @@
 package com.example.newsapp.core.data.remote
 
-import android.util.Log
 import androidx.paging.PagingSource
 import com.example.newsapp.core.data.remote.network.ApiService
-import com.example.newsapp.core.data.remote.response.NewsResult
-import com.example.newsapp.core.utils.DataMapper
 import com.example.newsapp.domain.model.NewsModel
 import retrofit2.HttpException
 import java.io.IOException

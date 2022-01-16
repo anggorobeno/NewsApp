@@ -4,6 +4,8 @@ import com.example.newsapp.BuildConfig
 import com.example.newsapp.core.data.Repository
 import com.example.newsapp.core.data.remote.network.ApiService
 import com.example.newsapp.domain.repository.IRepository
+import com.example.newsapp.domain.usecase.Interactor
+import com.example.newsapp.domain.usecase.UseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +18,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule  {
+class AppModule {
 
     @Provides
     fun provideBaseUrl() = "https://dev-api.thejakartapost.com/v1/"
@@ -52,6 +54,11 @@ class AppModule  {
         return repository
     }
 
+    @Provides
+    @Singleton
+    fun provideUseCase(interactor: Interactor): UseCase {
+        return interactor
+    }
 
 
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.core.data.remote.response.NewsResult
+import com.example.newsapp.core.utils.Helper
 import com.example.newsapp.databinding.ItemListNewsBinding
 import com.example.newsapp.domain.model.NewsModel
 import javax.inject.Inject
@@ -18,7 +18,8 @@ class NewsAdapter @Inject constructor() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(news: NewsModel) {
             with(binding) {
-                tvNewsDate.text = news.publishedDate
+                val dateFormatted = news.publishedDate?.let { Helper.dateFormatter(it) }
+                tvNewsDate.text = dateFormatted
                 tvNewsTitle.text = news.title
                 news.gallery.forEach { image ->
                     Glide.with(itemView)

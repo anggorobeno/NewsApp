@@ -1,9 +1,7 @@
 package com.example.newsapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import com.example.newsapp.databinding.ActivityNewsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,8 +14,5 @@ class NewsActivity : AppCompatActivity() {
         _binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-
-
-
     }
 }

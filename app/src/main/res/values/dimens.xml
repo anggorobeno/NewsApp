@@ -20,4 +20,5 @@
     <dimen name="dimens_30">30dp</dimen>
     <dimen name="dimens_38">38dp</dimen>
     <dimen name="font_18">18sp</dimen>
+    <dimen name="dimens_300">300dp</dimen>
 </resources>

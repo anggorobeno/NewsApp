@@ -1,16 +1,16 @@
 package com.example.newsapp.core.utils
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Helper {
-    @RequiresApi(Build.VERSION_CODES.O)
     fun dateFormatter(input: String): String {
-        val firstApiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        return LocalDate.parse(input, firstApiFormat).toString()
+        val dateFormat_yyyyMMddHHmmss = SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss", Locale.ENGLISH
+        )
+        val date = dateFormat_yyyyMMddHHmmss.parse(input)!!
+        val simpleDateFormat = SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a")
+        val dateTime = simpleDateFormat.format(date)
+        return dateTime
     }
-
-
 }

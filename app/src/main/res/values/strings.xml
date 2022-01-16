@@ -8,4 +8,31 @@
     <string name="article_image_description">Article Image</string>
     <string name="fab_button_to_add_favourite">Fab button to add to favourite</string>
     <string name="back_to_exit">Press back again to exit</string>
+    <string name="back_button">Back Button</string>
+    <string name="dummy_writer">Anggoro Beno</string>
+    <string name="tv_writer">Writer</string>
+    <string name="tv_publish_date">Published at</string>
+    <string name="dummy_date">2021-05-12</string>
+    <string name="published_date">%1$s / %2$s</string>
+    <string name="html"><![CDATA[%1$s]]></string>
+    <string name="html2">
+        <![CDATA[
+        <h1>Main Title</h1>
+        <h2>A sub-title</h2>
+        <p>This is some html. Look, here\'s an <u>underline</u>.</p>
+        <p>Look, this is <em>emphasized.</em> And here\'s some <b>bold</b>.</p>
+        <p>This is a UL list:
+        <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        </ul>
+        <p>This is an OL list:
+        <ol>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+        </ol>
+        ]]>
+    </string>
 </resources>

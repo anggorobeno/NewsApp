@@ -5,10 +5,10 @@ import androidx.paging.PagingConfig
 import com.example.newsapp.core.data.remote.NewsPagingSource
 import com.example.newsapp.core.data.remote.PAGE_SIZE
 import com.example.newsapp.core.data.remote.network.ApiService
-import com.example.newsapp.domain.repository.IRepository
-import com.example.newsapp.domain.model.DetailNewsModel
 import com.example.newsapp.core.utils.DataMapper
 import com.example.newsapp.core.utils.UiState
+import com.example.newsapp.domain.model.DetailNewsModel
+import com.example.newsapp.domain.repository.IRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
